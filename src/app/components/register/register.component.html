@@ -1,0 +1,7 @@
+<label for="input-user">{{str.username}}: </label>
+<input id="input-user" [(ngModel)]="registerData.user">
+
+<label for="input-password">{{str.password}}: </label>
+<input id="input-password" type="password" [(ngModel)]="registerData.password">
+
+<button id="register-send" (click)="onSubmit()">{{str.register}}</button>
