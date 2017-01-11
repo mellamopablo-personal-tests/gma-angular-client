@@ -24,10 +24,12 @@ export class RegisterComponent implements OnInit {
 
 	onSubmit() {
 		console.log(this.registerData);
-		this.cryptoService.generateKeyPair(this.registerData.user, this.registerData.password)
+		/*this.cryptoService.generateKeyPair(this.registerData.user, this.registerData.password)
 			.then(kp => kp.publicKey)
 			.then(console.log)
-			.catch(console.error /*TODO HANDLE*/);
+			.catch(console.error /*TODO HANDLE/);*/
+
+		console.log(this.cryptoService.encrypt("abcde", new Buffer("1234")));
 	}
 
 	ngOnInit() {

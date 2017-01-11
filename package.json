@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/router": "^3.3.1",
     "core-js": "^2.4.1",
-    "gma-client-crypto": "https://github.com/mellamopablo-personal-tests/gma-client-crypto.git#4fcd96e4e34b4691a4133d9460c1f102112932f7",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
