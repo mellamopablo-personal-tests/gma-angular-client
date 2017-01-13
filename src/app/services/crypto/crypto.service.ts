@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { createDiffieHellman } from "../../../node_modules/diffie-hellman/";
-import * as request from "../../../node_modules/request-promise";
-import * as cfg from "../../../config";
+import { createDiffieHellman } from "../../../../node_modules/diffie-hellman/";
+import * as request from "../../../../node_modules/request-promise";
+import * as cfg from "../../../../config";
 
 interface KeyPair {
 	publicKey: Buffer

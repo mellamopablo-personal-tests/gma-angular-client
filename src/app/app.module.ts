@@ -5,7 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './components/app/app.component';
 import { RegisterComponent } from './components/register/register.component';
-import { CryptoService } from "./services/crypto.service";
+import { CryptoService } from "./services/crypto/crypto.service";
+import { ApiService } from "./services/api/api.service";
 
 @NgModule({
 	declarations: [
@@ -17,7 +18,7 @@ import { CryptoService } from "./services/crypto.service";
 		FormsModule,
 		HttpModule
 	],
-	providers: [CryptoService],
+	providers: [CryptoService, ApiService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
