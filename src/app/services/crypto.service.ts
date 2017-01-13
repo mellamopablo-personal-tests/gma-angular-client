@@ -1,29 +1,58 @@
 import { Injectable } from '@angular/core';
-import { GmaCrypto, KeyPair } from "gma-client-crypto/dist";
-//import { createCipher } from "crypto";
-const createCipher = require("crypto").createCipher;
+import { createDiffieHellman } from "../../../node_modules/diffie-hellman/";
+import * as request from "../../../node_modules/request-promise";
 import * as cfg from "../../../config";
+
+interface KeyPair {
+	publicKey: Buffer
+	privateKey: Buffer
+}
 
 @Injectable()
 export class CryptoService {
 
-	cryptoClient: GmaCrypto;
+	private baseUrl: string;
+	private prime: Buffer;
 
 	constructor() {
-		this.cryptoClient = new GmaCrypto(cfg.SERVER_URL);
+		this.baseUrl = cfg.SERVER_URL;
+		this.prime = null;
 	}
 
+	/**
+	 * Generates a key pair, the private key being the concatenation of the username
+	 * and password. The public key can then be sent to the POST /users method in the server.
+	 *
+	 * @param {string} username
+	 * @param {string} password
+	 * @returns {Promise<KeyPair>}
+	 */
 	generateKeyPair(username: string, password: string): Promise<KeyPair> {
-		return this.cryptoClient.generateKeyPair(username, password);
+		return new Promise((fulfill, reject) => {
+			this.getPrime().then(prime => {
+				const dh = createDiffieHellman(prime);
+				dh.setPrivateKey(new Buffer(username + password));
+				dh.generateKeys();
+
+				fulfill({
+					publicKey: dh.getPublicKey(),
+					privateKey: dh.getPrivateKey()
+				});
+			}).catch(reject);
+		});
 	}
 
-	encrypt(message: string, secret: Buffer): string {
-		const cipher = createCipher(cfg.ENCRYPTION_ALGORITHM, secret);
-
-		let encrypted = cipher.update(message, cfg.INPUT_ENCODING, cfg.OUTPUT_ENCODING);
-		encrypted += cipher.final(cfg.OUTPUT_ENCODING);
-
-		return encrypted;
+	private getPrime(): Promise<Buffer> {
+		return new Promise((fulfill, reject) => {
+			if (this.prime === null) {
+				request(this.baseUrl + "/auth/prime")
+					.then(r => JSON.parse(r).prime)
+					.then(p => new Buffer(p, cfg.ENCODING))
+					.then(fulfill).catch(reject);
+			} else {
+				fulfill(this.prime);
+			}
+		});
 	}
 
 }
