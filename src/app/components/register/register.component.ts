@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterData } from "../../structures/interfaces/RegisterData";
-import { register as str } from "../../strings/en";
+import { str } from "../../strings/en";
 import { CryptoService } from "../../services/crypto/crypto.service";
 import { ApiService } from "../../services/api/api.service";
-import * as cfg from "../../../../config";
 
 @Component({
 	selector: 'app-register',
@@ -31,6 +30,7 @@ export class RegisterComponent implements OnInit {
 				this.registerData.user, this.registerData.password, pk
 			))
 			.then(console.log)
+			.then(() => alert("OK")) // TODO make this prettier
 			.catch(console.error /*TODO HANDLE*/);
 	}
 
