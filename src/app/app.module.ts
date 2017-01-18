@@ -8,6 +8,7 @@ import { CryptoService } from "./services/crypto/crypto.service";
 import { ApiService } from "./services/api/api.service";
 import { AppRoutingModule } from "./components/app-routing.module";
 import { LoginComponent } from './components/login/login.component';
+import { SessionService } from "./services/session/session.service";
 
 @NgModule({
 	declarations: [
@@ -21,7 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 		HttpModule,
 		AppRoutingModule
 	],
-	providers: [CryptoService, ApiService],
+	providers: [CryptoService, ApiService, SessionService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

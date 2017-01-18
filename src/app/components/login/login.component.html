@@ -1,8 +1,17 @@
 <label for="input-user">{{str.username}}: </label>
 <input id="input-user" [(ngModel)]="loginData.user">
 
+<br>
+
 <label for="input-password">{{str.password}}: </label>
 <input id="input-password" type="password" [(ngModel)]="loginData.password">
+
+<br>
+
+<input id="input-remember-me" type="checkbox" [(ngModel)]="loginData.extended">
+<label for="input-remember-me">{{str.remember_me}}</label>
+
+<br>
 
 <button id="register-send" (click)="onSubmit()">{{str.login}}</button>
 
